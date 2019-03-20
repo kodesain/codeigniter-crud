@@ -12,7 +12,6 @@ class Payments extends CI_Controller {
 
     public function index() {
         $data = array();
-        $data['payments'] = $this->payments_model->get();
         $data['content'] = $this->load->view('payments/index', $data, true);
 
         $this->load->view('layout', $data);

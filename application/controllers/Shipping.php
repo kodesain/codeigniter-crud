@@ -12,7 +12,6 @@ class Shipping extends CI_Controller {
 
     public function index() {
         $data = array();
-        $data['shipping'] = $this->shipping_model->get();
         $data['content'] = $this->load->view('shipping/index', $data, true);
 
         $this->load->view('layout', $data);
