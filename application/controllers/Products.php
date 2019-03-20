@@ -25,7 +25,7 @@ class Products extends CI_Controller {
             ['field' => 'prod_description', 'label' => 'Description', 'rules' => 'required']
         ]);
 
-        if ($this->input->method() == 'post') {
+        if ($this->form_validation->run()) {
             $upload = $this->upload('image_file');
             if (!empty($upload)) {
                 if ($upload['error'] == 0) {
@@ -61,7 +61,7 @@ class Products extends CI_Controller {
             ['field' => 'prod_description', 'label' => 'Description', 'rules' => 'required']
         ]);
 
-        if ($this->input->method() == 'post') {
+        if ($this->form_validation->run()) {
             $upload = $this->upload('image_file');
             if (!empty($upload)) {
                 if ($upload['error'] == 0) {

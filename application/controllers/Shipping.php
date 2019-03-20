@@ -51,7 +51,7 @@ class Shipping extends CI_Controller {
             array_push($message, 'Description is required');
         }
 
-        if ($this->input->method() == 'post') {
+        if (empty($message)) {
             $upload = $this->upload('image_file');
             if (!empty($upload)) {
                 if ($upload['error'] == 0) {
