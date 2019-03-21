@@ -38,19 +38,16 @@ class Payments extends CI_Controller {
     }
 
     public function save($id = NULL) {
-        $message = array();
+        $message = NULL;
         $data = NULL;
         $status = 'failed';
 
-        if (trim($this->input->post('pay_name')) == '') {
-            array_push($message, 'Payment is required');
-        }
+        $this->form_validation->set_rules([
+            ['field' => 'pay_name', 'label' => 'Payment', 'rules' => 'required'],
+            ['field' => 'pay_description', 'label' => 'Description', 'rules' => 'required']
+        ]);
 
-        if (trim($this->input->post('pay_description')) == '') {
-            array_push($message, 'Description is required');
-        }
-
-        if (empty($message)) {
+        if ($this->form_validation->run()) {
             if (empty($id)) {
                 $this->payments_model->create();
                 $status = 'success';
@@ -60,6 +57,8 @@ class Payments extends CI_Controller {
                 $status = 'success';
                 $message = 'Payment has been successfully updated';
             }
+        } else {
+            $message = $this->form_validation->error_string();
         }
 
         $this->output
@@ -72,15 +71,13 @@ class Payments extends CI_Controller {
     }
 
     public function delete($id = NULL) {
-        $message = array();
+        $message = NULL;
         $data = NULL;
         $status = 'failed';
 
         if (empty($id)) {
-            array_push($message, 'ID is required');
-        }
-
-        if (empty($message)) {
+            $message = 'ID is required';
+        } else {
             $this->payments_model->delete($id);
             $status = 'success';
             $message = 'Payment has been successfully deleted';

@@ -38,30 +38,27 @@ class Shipping extends CI_Controller {
     }
 
     public function save($id = NULL) {
-        $message = array();
+        $message = NULL;
         $data = NULL;
         $status = 'failed';
 
-        if (trim($this->input->post('ship_name')) == '') {
-            array_push($message, 'Shipping is required');
-        }
+        $this->form_validation->set_rules([
+            ['field' => 'ship_name', 'label' => 'Shipping', 'rules' => 'required'],
+            ['field' => 'ship_description', 'label' => 'Description', 'rules' => 'required']
+        ]);
 
-        if (trim($this->input->post('ship_description')) == '') {
-            array_push($message, 'Description is required');
-        }
-
-        if (empty($message)) {
+        if ($this->form_validation->run()) {
             $upload = $this->upload('image_file');
             if (!empty($upload)) {
                 if ($upload['error'] == 0) {
                     $_POST['ship_image'] = $upload['location'];
                 } else {
-                    array_push($message, $upload['message']);
+                    $this->form_validation->set_rules('image_file', 'Image File', 'required', array('required' => $upload['message']));
                 }
             }
         }
 
-        if (empty($message)) {
+        if ($this->form_validation->run()) {
             if (empty($id)) {
                 $this->shipping_model->create();
                 $status = 'success';
@@ -71,6 +68,8 @@ class Shipping extends CI_Controller {
                 $status = 'success';
                 $message = 'Shipping has been successfully updated';
             }
+        } else {
+            $message = $this->form_validation->error_string();
         }
 
         $this->output
@@ -83,15 +82,13 @@ class Shipping extends CI_Controller {
     }
 
     public function delete($id = NULL) {
-        $message = array();
+        $message = NULL;
         $data = NULL;
         $status = 'failed';
 
         if (empty($id)) {
-            array_push($message, 'ID is required');
-        }
-
-        if (empty($message)) {
+            $message = 'ID is required';
+        } else {
             $this->shipping_model->delete($id);
             $status = 'success';
             $message = 'Shipping has been successfully deleted';

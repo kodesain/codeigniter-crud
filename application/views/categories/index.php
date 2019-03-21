@@ -26,7 +26,6 @@
                         <td>
                             <a href="<?php echo site_url('categories/edit/' . $row['cat_id']); ?>" class="btn btn-primary btn-sm float-left mr-1" role="button"><i class="fas fa-pen"></i> Edit</a>
                             <?php echo form_open('categories/delete/' . $row['cat_id']); ?>
-                            <input type="hidden" name="cat_id" value="<?php echo $row['cat_id']; ?>">
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?');"><i class="fas fa-trash"></i> Delete</button>
                             <?php echo form_close(); ?>
                         </td>

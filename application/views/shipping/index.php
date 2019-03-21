@@ -38,9 +38,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-danger d-none" role="alert" id="formAlert">
-                    <ul class="m-0"></ul>
-                </div>
+                <div class="alert alert-danger d-none" role="alert" id="formAlert"></div>
                 <form method="post">
                     <input type="hidden" id="ship_id" name="ship_id" value="">
                     <input type="hidden" id="ship_image" name="ship_image" value="">
@@ -140,20 +138,14 @@
             processData: false,
             success: function (result) {
                 if (result.status == "success") {
-                    $("#dataAlert").text(result.message);
+                    $("#dataAlert").html(result.message);
                     $("#dataAlert").removeClass("d-none");
 
                     $("#formModal").modal("hide");
 
                     show();
                 } else {
-                    var list = "";
-
-                    $.each(result.message, function (index, value) {
-                        list += '<li>' + value + '</li>';
-                    });
-
-                    $("#formAlert ul").empty().append(list);
+                    $("#formAlert").html(result.message);
                     $("#formAlert").removeClass("d-none");
                 }
             }
@@ -165,7 +157,7 @@
             if (confirm("Are you sure to delete?") == true) {
                 $.post("<?php echo site_url('shipping'); ?>/delete/" + id, function (result) {
                     if (result.status == "success") {
-                        $("#dataAlert").text(result.message);
+                        $("#dataAlert").html(result.message);
                         $("#dataAlert").removeClass("d-none");
 
                         show();
