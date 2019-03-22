@@ -77,7 +77,7 @@
     });
 
     function show() {
-        $.post("<?php echo site_url('shipping'); ?>/read", function (result) {
+        $.post("<?php echo site_url('shipping'); ?>/show", function (result) {
             var row = "";
 
             $.each(result.data, function (index, value) {
@@ -111,7 +111,7 @@
 
     function edit(id) {
         if (typeof id !== "undefined") {
-            $.post("<?php echo site_url('shipping'); ?>/read/" + id, function (result) {
+            $.post("<?php echo site_url('shipping'); ?>/show/" + id, function (result) {
                 $("#ship_id").val(result.data.ship_id);
                 $("#ship_name").val(result.data.ship_name);
                 $("#ship_description").val(result.data.ship_description);
@@ -155,7 +155,7 @@
     function drop(id) {
         if (typeof id !== "undefined") {
             if (confirm("Are you sure to delete?") == true) {
-                $.post("<?php echo site_url('shipping'); ?>/delete/" + id, function (result) {
+                $.post("<?php echo site_url('shipping'); ?>/drop/" + id, function (result) {
                     if (result.status == "success") {
                         $("#dataAlert").html(result.message);
                         $("#dataAlert").removeClass("d-none");

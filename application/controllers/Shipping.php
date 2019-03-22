@@ -17,7 +17,7 @@ class Shipping extends CI_Controller {
         $this->load->view('layout', $data);
     }
 
-    public function read($id = NULL) {
+    public function show($id = NULL) {
         $message = NULL;
         $data = NULL;
         $status = 'success';
@@ -81,7 +81,7 @@ class Shipping extends CI_Controller {
         )));
     }
 
-    public function delete($id = NULL) {
+    public function drop($id = NULL) {
         $message = NULL;
         $data = NULL;
         $status = 'failed';

@@ -63,7 +63,7 @@
     });
 
     function show() {
-        $.post("<?php echo site_url('payments'); ?>/read", function (result) {
+        $.post("<?php echo site_url('payments'); ?>/show", function (result) {
             var row = "";
 
             $.each(result.data, function (index, value) {
@@ -93,7 +93,7 @@
 
     function edit(id) {
         if (typeof id !== "undefined") {
-            $.post("<?php echo site_url('payments'); ?>/read/" + id, function (result) {
+            $.post("<?php echo site_url('payments'); ?>/show/" + id, function (result) {
                 $("#pay_id").val(result.data.pay_id);
                 $("#pay_name").val(result.data.pay_name);
                 $("#pay_description").val(result.data.pay_description);
@@ -130,7 +130,7 @@
     function drop(id) {
         if (typeof id !== "undefined") {
             if (confirm("Are you sure to delete?") == true) {
-                $.post("<?php echo site_url('payments'); ?>/delete/" + id, function (result) {
+                $.post("<?php echo site_url('payments'); ?>/drop/" + id, function (result) {
                     if (result.status == "success") {
                         $("#dataAlert").html(result.message);
                         $("#dataAlert").removeClass("d-none");
